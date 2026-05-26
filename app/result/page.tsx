@@ -12,6 +12,7 @@ import {
 
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { DownloadShareCardButton } from '@/components/share-card/download-button';
 import { TAMSUI_HALF_DAY } from '@/data/examples';
 import { TripPlanSchema, type TripPlan } from '@/lib/validators/trip-plan';
 
@@ -137,13 +138,16 @@ export default function ResultPage() {
         </Button>
       </Card>
 
-      <Button
-        variant="outline"
-        className="w-full"
-        onClick={() => router.push('/')}
-      >
-        <RotateCw className="size-4" /> 重新產生
-      </Button>
+      <div className="space-y-3">
+        <DownloadShareCardButton plan={plan} />
+        <Button
+          variant="outline"
+          className="w-full"
+          onClick={() => router.push('/')}
+        >
+          <RotateCw className="size-4" /> 重新產生
+        </Button>
+      </div>
     </main>
   );
 }
