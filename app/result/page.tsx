@@ -19,10 +19,28 @@ import { cn } from '@/lib/utils';
 
 const STORAGE_KEY = 'weekend-picker:trip-plan';
 
+function useCountUp(target: number, duration = 900) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    let raf = 0;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setValue(Math.round(target * eased));
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [target, duration]);
+  return value;
+}
+
 export default function ResultPage() {
   const router = useRouter();
   const [plan, setPlan] = useState<TripPlan | null>(null);
   const [copied, setCopied] = useState(false);
+  const animatedCost = useCountUp(plan?.estimatedCost ?? 0);
 
   useEffect(() => {
     const raw = sessionStorage.getItem(STORAGE_KEY);
@@ -132,8 +150,8 @@ export default function ResultPage() {
             className="relative flex items-baseline gap-3 border-b-2 border-amber pb-3"
           >
             <span className="font-mono text-[1rem] text-muted-foreground">NT$</span>
-            <span className="font-mono text-[3.5rem] font-bold leading-none tracking-tight text-foreground sm:text-[4.5rem]">
-              {plan.estimatedCost.toLocaleString()}
+            <span className="font-mono text-[3.5rem] font-bold leading-none tracking-tight text-foreground tabular-nums sm:text-[4.5rem]">
+              {animatedCost.toLocaleString()}
             </span>
             <span
               aria-hidden
