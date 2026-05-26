@@ -1,7 +1,9 @@
 import { z } from 'zod';
 
+import { CITY_VALUES } from '@/lib/constants/cities';
+
 export const TripRequestSchema = z.object({
-  departureCity: z.enum(['taipei', 'taoyuan', 'hsinchu', 'taichung', 'kaohsiung'], {
+  departureCity: z.enum(CITY_VALUES, {
     message: '請選擇出發城市',
   }),
   duration: z.enum(['half_day', 'full_day', 'two_days'], {
