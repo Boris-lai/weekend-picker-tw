@@ -4,7 +4,7 @@ import { SYSTEM_PROMPT, buildPrompt } from './prompt';
 import { TripPlanSchema, type TripPlan } from '@/lib/validators/trip-plan';
 import type { TripRequest } from '@/lib/validators/trip-request';
 
-const MODEL = 'claude-haiku-4-5-20251001';
+const MODEL = 'claude-sonnet-4-6';
 const MAX_TOKENS = 2048;
 
 function mapSearchUrl(placeName: string, city: string): string {
