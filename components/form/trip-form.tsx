@@ -2,6 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 
 import {
@@ -28,6 +29,7 @@ import { DURATIONS, TRANSPORTS, BUDGETS } from '@/lib/constants/transport';
 import { PREFERENCES } from '@/lib/constants/preferences';
 
 export function TripForm() {
+  const router = useRouter();
   const form = useForm<TripRequest>({
     resolver: zodResolver(TripRequestSchema),
     defaultValues: {
@@ -52,8 +54,8 @@ export function TripForm() {
   }
 
   async function onSubmit(values: TripRequest) {
-    // Day 1: just log. Day 2 will wire to /api/generate.
-    console.log('TripRequest:', values);
+    sessionStorage.setItem('weekend-picker:trip-request', JSON.stringify(values));
+    router.push('/result');
   }
 
   return (
