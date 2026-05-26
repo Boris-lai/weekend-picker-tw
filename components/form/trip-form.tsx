@@ -220,7 +220,7 @@ export function TripForm() {
 
         <div
           aria-hidden
-          className="-my-2 flex items-start gap-3 rounded-md border-l-2 border-amber/60 bg-cream-soft py-3 pl-4 pr-3 font-mono text-[0.84rem] leading-relaxed text-cream/80 sm:text-[0.92rem]"
+          className="flex items-start gap-3 rounded-md border-l-2 border-amber/60 bg-cream-soft py-3 pl-4 pr-3 font-mono text-[0.84rem] leading-relaxed text-cream/80 sm:text-[0.92rem]"
         >
           <span className="mt-0.5 text-amber">※</span>
           <span>
