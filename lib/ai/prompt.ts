@@ -1,0 +1,59 @@
+import { CITIES } from '@/lib/constants/cities';
+import { DURATIONS, TRANSPORTS, BUDGETS } from '@/lib/constants/transport';
+import { PREFERENCES } from '@/lib/constants/preferences';
+import type { TripRequest } from '@/lib/validators/trip-request';
+
+type LabeledOption = { value: string; label: string };
+
+function labelOf(arr: readonly LabeledOption[], value: string): string {
+  return arr.find((x) => x.value === value)?.label ?? value;
+}
+
+const DURATION_HINT: Record<TripRequest['duration'], string> = {
+  half_day: '半日（約 4 小時，下午或晚上時段）',
+  full_day: '一日（約 8-10 小時）',
+  two_days: '兩天一夜',
+};
+
+const BUDGET_HINT: Record<TripRequest['budget'], string> = {
+  '500': '單人 500 元以內（吃巧不吃飽、少門票）',
+  '1000': '單人約 1000 元（一餐正常、可有 1-2 個門票）',
+  '1500': '單人約 1500 元（兩餐 + 體驗活動）',
+  '2500_plus': '單人 2500 元以上（品質優先、好餐廳）',
+};
+
+const TRANSPORT_HINT: Record<TripRequest['transportation'], string> = {
+  public_transit: '大眾運輸（捷運 / 火車 / 公車），避開需要自駕才能到的偏僻地點',
+  car: '自駕，可以排比較遠的點，但要考慮停車',
+  scooter: '機車，避免太遠或山路太多',
+  less_walking: '少走路（行動不便友善），優先選離捷運站近、有電梯的地點',
+};
+
+export const SYSTEM_PROMPT = `你是熟悉台灣在地的微旅行規劃師。每次幫使用者排出「真的走得完、實際存在」的半日 / 一日 / 兩日小旅行。
+
+規則：
+1. **只用真實存在的台灣景點 / 店家 / 咖啡廳 / 餐廳**。寧可挑經典老地方，也不要編造名字。如果不確定某個店現在還在不在，就改選其他確定存在的。
+2. **時間軸要連貫**：上一站 endTime + 交通時間 ≈ 下一站 startTime。半日不跨縣市；大眾運輸不去公車一小時一班的偏僻地點。
+3. **預算給具體數字**，不寫「視情況而定」。總和要對得起單站加總。
+4. **socialCaption 要像真人在 IG / Threads 隨手分享**：1-2 句、口語、可帶 1 個 emoji，**不要硬塞 hashtag**、不要 AI 客套話。
+5. **stops 數量 3-5 站**。半日 3-4 站，一日 4-5 站，兩日按需要。
+6. transportNote 寫實際怎麼到（例如「淡水捷運站轉紅 26 公車 15 分鐘」），不要寫「自行前往」這種廢話。
+7. 一律呼叫 create_trip_plan tool 回傳結果，不要寫純文字。`;
+
+export function buildPrompt(req: TripRequest): string {
+  const city = labelOf(CITIES, req.departureCity);
+  const duration = DURATION_HINT[req.duration];
+  const transport = `${labelOf(TRANSPORTS, req.transportation)} — ${TRANSPORT_HINT[req.transportation]}`;
+  const budget = BUDGET_HINT[req.budget];
+  const prefs = req.preferences.map((p) => labelOf(PREFERENCES, p)).join('、');
+
+  return `請為我規劃這趟小旅行：
+
+- 出發城市：${city}
+- 時長：${duration}
+- 交通方式：${transport}
+- 預算：${budget}
+- 偏好：${prefs}
+
+請呼叫 create_trip_plan tool 回傳結果。`;
+}

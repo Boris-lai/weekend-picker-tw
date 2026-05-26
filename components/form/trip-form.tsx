@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
@@ -30,6 +31,7 @@ import { PREFERENCES } from '@/lib/constants/preferences';
 
 export function TripForm() {
   const router = useRouter();
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const form = useForm<TripRequest>({
     resolver: zodResolver(TripRequestSchema),
     defaultValues: {
@@ -54,8 +56,30 @@ export function TripForm() {
   }
 
   async function onSubmit(values: TripRequest) {
-    sessionStorage.setItem('weekend-picker:trip-request', JSON.stringify(values));
-    router.push('/result');
+    setSubmitError(null);
+    try {
+      const res = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      });
+      if (!res.ok) {
+        const data = (await res.json().catch(() => null)) as
+          | { error?: string }
+          | null;
+        throw new Error(data?.error ?? `產生失敗 (HTTP ${res.status})`);
+      }
+      const plan = await res.json();
+      sessionStorage.setItem('weekend-picker:trip-plan', JSON.stringify(plan));
+      sessionStorage.setItem(
+        'weekend-picker:trip-request',
+        JSON.stringify(values),
+      );
+      router.push('/result');
+    } catch (err) {
+      console.error('generate failed', err);
+      setSubmitError(err instanceof Error ? err.message : '產生失敗，請再試一次');
+    }
   }
 
   return (
@@ -194,10 +218,16 @@ export function TripForm() {
           )}
         />
 
+        {submitError ? (
+          <p className="rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+            {submitError}
+          </p>
+        ) : null}
+
         <Button type="submit" disabled={isSubmitting} className="w-full">
           {isSubmitting ? (
             <>
-              <Loader2 className="animate-spin" /> 產生中…
+              <Loader2 className="animate-spin" /> AI 規劃中（約 10 秒）…
             </>
           ) : (
             '產生行程'
