@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Download, Loader2 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import type { TripPlan } from '@/lib/validators/trip-plan';
 
 interface DownloadShareCardButtonProps {
@@ -55,18 +56,24 @@ export function DownloadShareCardButton({ plan }: DownloadShareCardButtonProps) 
       type="button"
       onClick={handleDownload}
       disabled={status === 'loading'}
-      className="w-full"
+      className={cn(
+        'group/dl relative h-13 w-full overflow-hidden rounded-full border border-amber text-base font-medium',
+        'bg-amber text-paper transition-all',
+        'hover:shadow-[0_0_40px_var(--amber-soft)]',
+        'sm:h-14 sm:text-[1.05rem]',
+      )}
     >
       {status === 'loading' ? (
-        <>
+        <span className="inline-flex items-center gap-2">
           <Loader2 className="size-4 animate-spin" /> 產生分享卡中…
-        </>
+        </span>
       ) : status === 'error' ? (
-        '產生失敗，再試一次'
+        <span>產生失敗・再試一次</span>
       ) : (
-        <>
-          <Download className="size-4" /> 下載分享卡
-        </>
+        <span className="inline-flex items-center gap-2">
+          <Download className="size-4" />
+          下載 IG 限動分享卡
+        </span>
       )}
     </Button>
   );
