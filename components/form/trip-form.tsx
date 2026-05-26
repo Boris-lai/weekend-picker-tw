@@ -67,7 +67,7 @@ export function TripForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>出發城市</FormLabel>
-              <Select onValueChange={field.onChange} value={field.value}>
+              <Select onValueChange={field.onChange} value={field.value ?? null}>
                 <FormControl>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="選擇出發城市" />
@@ -92,7 +92,7 @@ export function TripForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>時長</FormLabel>
-              <Select onValueChange={field.onChange} value={field.value}>
+              <Select onValueChange={field.onChange} value={field.value ?? null}>
                 <FormControl>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="選擇時長" />
@@ -117,7 +117,7 @@ export function TripForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>交通方式</FormLabel>
-              <Select onValueChange={field.onChange} value={field.value}>
+              <Select onValueChange={field.onChange} value={field.value ?? null}>
                 <FormControl>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="選擇交通方式" />
@@ -142,7 +142,7 @@ export function TripForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>預算</FormLabel>
-              <Select onValueChange={field.onChange} value={field.value}>
+              <Select onValueChange={field.onChange} value={field.value ?? null}>
                 <FormControl>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="選擇預算" />
