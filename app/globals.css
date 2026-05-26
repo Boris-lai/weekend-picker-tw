@@ -206,7 +206,7 @@
     background-size: 100% 0.55em;
   }
   .stamp {
-    @apply inline-flex items-center gap-1.5 border-2 border-dashed border-amber/70 px-3 py-1 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-amber;
+    @apply inline-flex items-center gap-1.5 border-2 border-dashed border-amber/70 px-5 py-1 font-mono text-[1rem] uppercase tracking-[0.2em] text-amber;
     border-radius: 4px;
   }
   .running-head {
@@ -254,12 +254,15 @@
 }
 
 @keyframes amber-pulse {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 18px var(--amber);
     transform: scale(1);
   }
   50% {
-    box-shadow: 0 0 32px var(--amber), 0 0 8px var(--amber);
+    box-shadow:
+      0 0 32px var(--amber),
+      0 0 8px var(--amber);
     transform: scale(1.15);
   }
 }

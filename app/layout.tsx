@@ -22,7 +22,11 @@ const mono = Geist_Mono({
   display: "swap",
 });
 
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "週末去哪裡 · 台灣微旅行指南",
   description:
     "給我一個方向，AI 幫你排一份真的走得完的台灣半日 / 一日小旅行。輸入出發地、時長、預算，3 秒拿到行程。",
@@ -31,6 +35,23 @@ export const metadata: Metadata = {
     description:
       "給我一個方向，AI 幫你排一份真的走得完的台灣半日 / 一日小旅行。",
     locale: "zh_TW",
+    type: "website",
+    url: SITE_URL,
+    images: [
+      {
+        url: "/api/og",
+        width: 1200,
+        height: 630,
+        alt: "週末去哪裡 · 台灣微旅行指南",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "週末去哪裡 · 台灣微旅行指南",
+    description:
+      "給我一個方向，AI 幫你排一份真的走得完的台灣半日 / 一日小旅行。",
+    images: ["/api/og"],
   },
 };
 

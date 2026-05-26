@@ -39,15 +39,19 @@ async function loadNotoSansTC(weight: 400 | 700, text: string): Promise<ArrayBuf
 export async function renderShareCard(
   jsx: ReactNode,
   text: string,
+  options: { width?: number; height?: number } = {},
 ): Promise<Buffer> {
+  const width = options.width ?? CARD_WIDTH;
+  const height = options.height ?? CARD_HEIGHT;
+
   const [regular, bold] = await Promise.all([
     loadNotoSansTC(400, text),
     loadNotoSansTC(700, text),
   ]);
 
   const svg = await satori(jsx, {
-    width: CARD_WIDTH,
-    height: CARD_HEIGHT,
+    width,
+    height,
     fonts: [
       { name: 'Noto Sans TC', data: regular, weight: 400, style: 'normal' },
       { name: 'Noto Sans TC', data: bold, weight: 700, style: 'normal' },

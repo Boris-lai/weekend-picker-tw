@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
-import { TripForm } from '@/components/form/trip-form';
+import { TripForm } from "@/components/form/trip-form";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -15,10 +15,10 @@ export default function Home() {
         transition={{ duration: 0.45, ease: EASE }}
         className="mb-6 flex items-center justify-between sm:mb-10"
       >
-        <span className="running-head">週末去哪裡 / weekend picker</span>
+        {/* <span className="running-head">週末去哪裡 / weekend picker</span>
         <span className="font-mono text-[0.78rem] tracking-wide text-muted-foreground">
           試刊號 / 試試看
-        </span>
+        </span> */}
       </motion.div>
 
       <header className="relative mb-16 space-y-7 sm:mb-24">
@@ -29,7 +29,7 @@ export default function Home() {
           className="absolute -top-2 right-0 hidden sm:block"
         >
           <span className="stamp">
-            <span aria-hidden>✦</span> issue 001
+            <span aria-hidden>✦</span> 說走就走
           </span>
         </motion.div>
 
@@ -40,13 +40,13 @@ export default function Home() {
           className="flex items-center gap-3"
         >
           <span className="animate-amber-pulse inline-block h-2 w-2 rounded-full bg-amber" />
-          <span className="label-eyebrow">AI 微旅行指南・台灣</span>
+          <span className="label-eyebrow">微旅行指南・台灣</span>
         </motion.div>
 
-        <h1 className="display-serif text-[3rem] leading-[1.02] font-black sm:text-[4.75rem]">
+        <h1 className="display-serif text-[4rem] leading-[1.02] font-black sm:text-[5rem]">
           <motion.span
-            initial={{ opacity: 0, y: 28, filter: 'blur(8px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
             className="inline-block"
           >
@@ -55,8 +55,8 @@ export default function Home() {
           <br />
           <span className="relative inline-block">
             <motion.span
-              initial={{ opacity: 0, y: 28, filter: 'blur(8px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.7, delay: 0.35, ease: EASE }}
               className="relative z-10 inline-block pr-2"
             >
@@ -101,12 +101,13 @@ export default function Home() {
           transition={{ duration: 0.55, delay: 0.7, ease: EASE }}
           className="max-w-lg text-[1.05rem] leading-relaxed text-muted-foreground sm:text-[1.18rem]"
         >
-          給我一個方向，AI 幫你排一份
+          給我一個方向，幫你排一份
           <span className="text-foreground"> 真的走得完 </span>
-          的台灣半日 / 一日小旅行 ——
-          <span className="block sm:inline">
+          <br />
+          <span>的台灣半日 / 一日小旅行</span>
+          {/* <span className="block sm:inline">
             不用查地圖、不用比 CP 值、不用看部落客置入。
-          </span>
+          </span> */}
         </motion.p>
 
         <motion.div
@@ -123,9 +124,9 @@ export default function Home() {
             <span className="text-amber">10</span> 秒產生
           </span>
           <span className="hairline h-px w-6" />
-          <span className="font-mono text-[0.82rem] tracking-wide text-cream/80">
+          {/* <span className="font-mono text-[0.82rem] tracking-wide text-cream/80">
             <span className="text-amber">1</span> 鍵分享 IG 限動
-          </span>
+          </span> */}
         </motion.div>
       </header>
 
@@ -137,7 +138,7 @@ export default function Home() {
       >
         <div className="absolute inset-x-0 top-1/2 hairline h-px" />
         <div className="relative flex justify-center">
-          <span className="bg-background px-4 font-mono text-[0.78rem] uppercase tracking-[0.24em] text-amber">
+          <span className="bg-background px-4 font-mono text-[1.2rem] uppercase tracking-[0.24em] text-amber">
             ✦ 告訴我你想怎麼玩 ✦
           </span>
         </div>
@@ -148,7 +149,7 @@ export default function Home() {
       <motion.aside
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
+        viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.6, ease: EASE }}
         className="mt-24 sm:mt-32"
       >
@@ -157,7 +158,8 @@ export default function Home() {
           <span className="label-eyebrow">編輯按 / editor&apos;s note</span>
         </div>
         <p className="pull-quote">
-          「不是要做完整旅行 App，<br className="hidden sm:block" />
+          「不是要做完整旅行 App，
+          <br className="hidden sm:block" />
           是要讓你
           <span className="text-amber">三秒</span>
           決定週末。」
@@ -172,7 +174,7 @@ export default function Home() {
           weekend-picker.app
         </span>
         <span className="font-mono text-[0.78rem] uppercase tracking-[0.18em] text-muted-foreground">
-          made by hand <span className="text-amber">·</span> 在台灣這座島上{' '}
+          made by hand <span className="text-amber">·</span> 在台灣這座島上{" "}
           <span className="text-amber">·</span> {new Date().getFullYear()}
         </span>
       </footer>

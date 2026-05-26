@@ -54,7 +54,7 @@ const fieldEntries: Array<{
   label: string;
   hint?: string;
 }> = [
-  { index: "01", label: "出發城市", hint: "你現在人在哪" },
+  { index: "01", label: "出發城市", hint: "你現在人在哪？" },
   { index: "02", label: "時長", hint: "半日就好？還是兩天一夜" },
   { index: "03", label: "交通方式", hint: "會大幅影響可去的範圍" },
   { index: "04", label: "預算", hint: "單人花費上限" },
@@ -84,7 +84,7 @@ function FieldShell({
           </span>
         </div>
         {hint ? (
-          <span className="hidden font-mono text-[0.8rem] tracking-wide text-muted-foreground sm:inline">
+          <span className="hidden font-mono text-[1rem] tracking-wide text-muted-foreground sm:inline">
             {hint}
           </span>
         ) : null}
@@ -388,21 +388,21 @@ export function TripForm() {
                   <span className="animate-shimmer-sweep absolute top-0 h-full w-1/3 bg-linear-to-r from-transparent via-white/35 to-transparent" />
                 </span>
                 <span className="relative z-10 inline-flex items-center gap-2">
-                  <Loader2 className="size-5 animate-spin" />
-                  讓 AI 想想・約 10 秒
+                  <Loader2 className="size-5 animate-spin" />讓 AI 想想・約 10
+                  秒
                 </span>
               </>
             ) : (
               <span className="inline-flex items-center gap-2.5">
-                給我排一份
+                幫我安排吧
                 <ArrowRight className="size-5 transition-transform group-hover/submit:translate-x-1" />
               </span>
             )}
           </Button>
-          <p className="mt-4 text-center font-mono text-[0.78rem] tracking-wide text-muted-foreground">
+          {/* <p className="mt-4 text-center font-mono text-[0.78rem] tracking-wide text-muted-foreground">
             每次產生 ≈ NT$ 1 成本 <span className="text-amber">·</span>{" "}
             真的不確定的地點記得 google
-          </p>
+          </p> */}
         </motion.div>
       </motion.form>
     </Form>
