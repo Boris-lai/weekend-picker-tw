@@ -116,14 +116,14 @@ export default function Home() {
           transition={{ duration: 0.55, delay: 0.85, ease: EASE }}
           className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-2"
         >
-          <span className="font-mono text-[0.82rem] tracking-wide text-cream/80">
+          {/* <span className="font-mono text-[0.82rem] tracking-wide text-cream/80">
             <span className="text-amber">5</span> 秒填表
           </span>
           <span className="hairline h-px w-6" />
           <span className="font-mono text-[0.82rem] tracking-wide text-cream/80">
             <span className="text-amber">10</span> 秒產生
-          </span>
-          <span className="hairline h-px w-6" />
+          </span> */}
+          {/* <span className="hairline h-px w-6" /> */}
           {/* <span className="font-mono text-[0.82rem] tracking-wide text-cream/80">
             <span className="text-amber">1</span> 鍵分享 IG 限動
           </span> */}
