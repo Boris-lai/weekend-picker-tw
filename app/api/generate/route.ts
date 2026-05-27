@@ -1,10 +1,29 @@
 import { TripRequestSchema } from '@/lib/validators/trip-request';
 import { generateTrip } from '@/lib/ai/generate-trip';
+import { checkGenerateRateLimit, getClientIp } from '@/lib/ratelimit';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
 
 export async function POST(req: Request) {
+  const ip = getClientIp(req);
+  const rl = await checkGenerateRateLimit(ip);
+  if (!rl.allowed) {
+    const message =
+      rl.reason === 'minute'
+        ? '你太快了，等一下再試（每分鐘上限 5 次）'
+        : '今天的用量已達上限，明天再來吧（每日上限 30 次）';
+    return Response.json(
+      { error: message },
+      {
+        status: 429,
+        headers: {
+          'Retry-After': String(rl.retryAfterSec),
+        },
+      },
+    );
+  }
+
   let body: unknown;
   try {
     body = await req.json();
